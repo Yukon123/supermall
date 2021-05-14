@@ -46,4 +46,7 @@ export default {
 </script>
 
 <style scoped>
+img {
+  padding-top: 44px;
+}
 </style>

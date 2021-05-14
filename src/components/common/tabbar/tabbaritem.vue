@@ -1,14 +1,14 @@
 <template>
-  <div class="tabbaritem" @click="clicked">
-    <div v-if="isActive"><slot name="tabbarimga"></slot></div>
-    <div v-else><slot name="tabbarimg"></slot></div>
-    <div :style="activecolor"><slot name="tabbarname"></slot></div>
+  <div class="tabbar-item" @click="clicked">
+    <div v-if="isActive"><slot name="tabbar-img-a"></slot></div>
+    <div v-else><slot name="tabbar-img"></slot></div>
+    <div :style="activeColor"><slot name="tabbar-name"></slot></div>
   </div>
 </template>  
 
 <script>
 export default {
-  name: "tabbaritem",
+  name: "TabbarItem",
   components: {},
   props: {
     path: String,
@@ -25,7 +25,7 @@ export default {
     isActive() {
       return this.$route.path.indexOf(this.path) !== -1;
     },
-    activecolor() {
+    activeColor() {
       return this.isActive ? { color: this.acolor } : {};
     },
   },
@@ -40,12 +40,12 @@ export default {
 };
 </script>
 <style scoped>
-.tabbaritem {
+.tabbar-item {
   flex: 1;
   text-align: center;
   height: 49px;
 }
-.tabbaritem img {
+.tabbar-item img {
   height: 24px;
   vertical-align: middle;
   margin-top: 3px;

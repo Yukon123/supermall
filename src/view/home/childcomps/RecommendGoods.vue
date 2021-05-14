@@ -1,8 +1,8 @@
 <template>
     
   <div>
-    <div class="recommengoods">
-      <div v-for="item in recommengoods" class="recommengoodItem">
+    <div class="recommend-goods">
+      <div v-for="item in recommendGoods" class="recommend-goods-item">
         <a :href="item.link">
           <img :src="item.image" alt="" />
           <div>{{ item.title }}</div>
@@ -16,10 +16,10 @@
 
 <script>
 export default {
-  name: "recommengoods",
+  name: "RecommendGoods",
   components: {},
   props: {
-    recommengoods: {
+    recommendGoods: {
       type: Array,
       default() {
         return [];
@@ -37,7 +37,7 @@ export default {
 };
 </script>
 <style scoped>
-.recommengoods {
+.recommend-goods {
   display: flex;
   width: 100%;
   text-align: center;
@@ -47,11 +47,11 @@ export default {
   border-bottom: 10px solid #eee;
 }
 
-.recommengoodItem {
+.recommend-goods-item {
   flex: 1;
 }
 
-.recommengoodItem img {
+.recommend-goods-item img {
   width: 70px;
   height: 70px;
   margin-bottom: 10px;

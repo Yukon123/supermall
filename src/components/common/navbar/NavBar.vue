@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "navbar",
+  name: "Navbar",
   components: {},
   props: {},
   data() {
@@ -29,6 +29,7 @@ export default {
   display: flex;
   text-align: center;
   box-shadow: 0px 1px 1px rgba(100, 100, 100, 0.2);
+  position: fixed;
 }
 .left,
 .right {

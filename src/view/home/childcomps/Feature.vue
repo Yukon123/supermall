@@ -1,26 +1,29 @@
 <template>
-  <div>
-    <h1 v-html="abb">555</h1>
-    <h2>{{ a ? b : b + 1 }}{{ abb }}</h2>
+    
+  <div class="feature">
+    <a href="">
+      <img src="~assets/img/home/recommend_bg.jpg" alt="" />
+    </a>
   </div>
 </template>
 
 <script>
 export default {
-  name: "shopcart",
+  name: "",
   components: {},
   props: {},
   data() {
-    return { a: 0, b: 2, abb: "<div>3213<div>" };
+    return {};
   },
   watch: {},
   computed: {},
   methods: {},
-  created() {
-    console.log(this.a);
-  },
+  created() {},
   mounted() {},
 };
 </script>
 <style scoped>
+.feature img {
+  width: 100%;
+}
 </style>

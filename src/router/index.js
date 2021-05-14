@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 // 解决重复点击路由报错的BUG
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -7,14 +8,14 @@ Router.prototype.push = function push(location) {
 }
 
 
-const home = () =>
-    import ('view/home/home');
-const category = () =>
-    import ('view/category/category');
-const shopcart = () =>
-    import ('view/shopcart/shopcart');
-const profile = () =>
-    import ('view/profile/profile');
+const Home = () =>
+    import ('view/home/Home');
+const Category = () =>
+    import ('view/category/Category');
+const Shopcart = () =>
+    import ('view/shopcart/Shopcart');
+const Profile = () =>
+    import ('view/profile/Profile');
 
 
 Vue.use(Router)
@@ -24,18 +25,18 @@ const routes = [{
     },
     {
         path: '/home',
-        component: home,
+        component: Home,
     },
     {
         path: '/category',
-        component: category,
+        component: Category,
     }, {
         path: '/shopcart',
-        component: shopcart,
+        component: Shopcart,
     },
     {
         path: '/profile',
-        component: profile,
+        component: Profile,
     },
 
 ];
@@ -44,12 +45,5 @@ const router = new Router({
     mode: 'history',
 
 });
-// // 解决重复点击路由报错的BUG
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//     return originalPush.call(this, location).catch((err) => err)
-// }
-
-
 
 export default router;
