@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <RouterView />
-
     <MainTabbar />
   </div>
 </template>

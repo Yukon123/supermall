@@ -3,76 +3,21 @@
   <div>
     <Navbar class="navbar"> <div slot="center">购物街</div> </Navbar>
     <MySwiper :banners="banners" />
+
     <RecommendGoods :recommendGoods="recommendGoods" />
     <Feature />
     <TabbarControl :title="['流行', '新款', '精选']" class="tab-control" />
-    <GoodsList :goods="goods.pop.list" />
+    <BetterScroll>
+      <GoodsList :goods="goods.pop.list" />
+    </BetterScroll>
 
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <ReturnTop @clickReturnTop="clickReturnTop" />
   </div>
 </template>
 
 <script>
 import Navbar from "components/common/navbar/Navbar";
+import BetterScroll from "components/common/scroll/BetterScroll";
 
 import RecommendGoods from "./childcomps/RecommendGoods";
 import Feature from "./childcomps/Feature";
@@ -82,6 +27,7 @@ import MySwiper from "@/myswiper/MySwiper";
 
 import GoodsList from "components/content/goods/GoodsList";
 import TabbarControl from "components/content/TabbarControl";
+import ReturnTop from "components/content/ReturnTop";
 
 import { getMulData, getProductData } from "network/homenet";
 
@@ -89,11 +35,14 @@ export default {
   name: "home",
   components: {
     Navbar,
+    BetterScroll,
+
     RecommendGoods,
     HomeSwiper,
     Feature,
     TabbarControl,
     GoodsList,
+    ReturnTop,
 
     MySwiper,
 
@@ -128,23 +77,14 @@ export default {
       });
     },
 
-    // getProductData(type) {
-    //   // const page = this.goods.type[list] + 1;
-    //   const page = this.goods[type].page + 1;
-    //   console.log(page);
-    //   getProductData(type, page).then((res) => {
-    //     console.log(res);
-    //     this.goods[type].list.push(...res.data.list);
-    //   });
-    // },
     getProductData(type) {
       const page = this.goods[type].page + 1;
-
       getProductData(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
     },
+    clickReturnTop() {},
   },
 
   created() {
@@ -159,6 +99,11 @@ export default {
 };
 </script>
 <style scoped>
+.wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .navbar {
   background-color: pink;
   color: #fff;

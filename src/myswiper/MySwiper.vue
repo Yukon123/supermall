@@ -1,36 +1,40 @@
 <template>
    
-  <swiper
-    ref="my-swiper"
+  <Swiper
+    ref="mySwiper"
     :options="swiperOptions"
     v-if="banners && banners.length > 0"
   >
-    <swiper-slide v-for="(item, index) in banners" :key="index">
+    <SwiperSlide v-for="(item, index) in banners" :key="index">
       <div class="slide-item">
         <a :href="item.link">
           <img :src="item.image" alt="" />
         </a>
       </div>
-    </swiper-slide>
+    </SwiperSlide>
 
     <div class="swiper-pagination" slot="pagination"></div>
     <div></div>
-  </swiper>
+  </Swiper>
 </template>
 
 <script>
-import { swiper, swiperslide } from "vue-awesome-swiper";
+import {
+  swiper as Swiper,
+  swiperSlide as SwiperSlide,
+} from "vue-awesome-swiper";
+
 import "swiper/dist/css/swiper";
 
 export default {
-  name: "MySwiper",
+  name: "myswiper",
   props: {
     banners: {
       type: Array,
       default: [],
     },
   },
-  components: { swiper, swiperslide },
+  components: { Swiper, SwiperSlide },
   data() {
     return {
       swiperOptions: {
@@ -50,15 +54,12 @@ export default {
   },
   computed: {
     swiper() {
-      return this.$refs.my - swiper.swiper;
+      return this.$refs.mySwiper.swiper;
     },
   },
-  mounted() {
-    this.$nextTick(function () {
-      console.log(this, swiper);
-      // Code that will run only after the
-      // entire view has been rendered
-    });
+
+  updated() {
+    console.log("Current Swiper instance object", this.swiper);
   },
 };
 </script>

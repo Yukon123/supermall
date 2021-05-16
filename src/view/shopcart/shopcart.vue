@@ -5,9 +5,10 @@
   </div>
 </template>
 
+
 <script>
 export default {
-  name: "shopcart",
+  name: "Shopcart",
   components: {},
   props: {},
   data() {

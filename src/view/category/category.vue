@@ -89,6 +89,9 @@ export default {
       console.log("加载");
       setTimeout(() => bs.finishPullUp(), 5000);
     });
+    this.$nextTick(function () {
+      console.log(this);
+    });
   },
 
   updated() {
