@@ -1,20 +1,20 @@
 <template>
     
-  <div>
+  <div id="home">
     <Navbar class="navbar"> <div slot="center">购物街</div> </Navbar>
-    <MySwiper :banners="banners" />
+    <BetterScroll>
+      <MySwiper :banners="banners" />
+      <RecommendGoods :recommendGoods="recommendGoods" />
+      <Feature />
+      <TabbarControl
+        :title="['流行', '新款', '精选']"
+        class="tab-control"
+        @onClicked="changeGoodType"
+      />
+      <GoodsList :goods="goods[goodType].list" />
 
-    <RecommendGoods :recommendGoods="recommendGoods" />
-    <Feature />
-    <TabbarControl
-      :title="['流行', '新款', '精选']"
-      class="tab-control"
-      @onClicked="changeGoodType"
-    />
-
-    <GoodsList :goods="goods[goodType].list" />
-
-    <ReturnTop @clickReturnTop="clickReturnTop" />
+      <ReturnTop @clickReturnTop="clickReturnTop" />
+    </BetterScroll>
   </div>
 </template>
 
@@ -104,6 +104,9 @@ export default {
 };
 </script>
 <style scoped>
+#home {
+  height: 100vh;
+}
 .navbar {
   background-color: pink;
   color: #fff;
@@ -116,4 +119,9 @@ export default {
   position: sticky;
   top: 44px;
 }
+
+/* .scroll {
+  height: 100vh;
+  overflow: hidden;
+} */
 </style>

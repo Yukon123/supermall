@@ -48,7 +48,6 @@ export default {
         pagination: {
           el: ".swiper-pagination",
         },
-        // Some Swiper option/callback...
       },
     };
   },
@@ -64,6 +63,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .slide-item {
   font-size: 0;
 }
