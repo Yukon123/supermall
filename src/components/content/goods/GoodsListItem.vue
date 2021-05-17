@@ -1,11 +1,11 @@
 <template>
     
-  <div class="G">
+  <div class="goods-list-item">
     <img :src="goodsItem.show.img" alt="" />
     <div class="goods-info">
-      <!-- <p>{{ goodsItem.title }}</p> -->
-      <span>价格{{ goodsItem.price }}</span>
-      <span>收藏数{{ goodsItem.cfav }}</span>
+      <p>{{ goodsItem.title }}</p>
+      <span class="price">{{ goodsItem.price }}</span>
+      <span class="collect">{{ goodsItem.cfav }}</span>
     </div>
   </div>
 </template>
@@ -33,14 +33,14 @@ export default {
 };
 </script>
 <style scoped>
-.G {
+.goods-list-item {
   padding-bottom: 40px;
   position: relative;
 
   width: 48%;
 }
 
-.G img {
+.goods-list-item img {
   width: 100%;
   border-radius: 5px;
 }
@@ -66,12 +66,11 @@ export default {
   color: red;
   margin-right: 20px;
 }
-
-/* .goods-info .collect {
+.goods-info .collect {
   position: relative;
-} */
+}
 
-/* .goods-info .collect::before {
+.goods-info .collect::before {
   content: "";
   position: absolute;
   left: -15px;
@@ -79,5 +78,5 @@ export default {
   width: 14px;
   height: 14px;
   background: url("~assets/img/common/collect.svg") 0 0/14px 14px;
-} */
+}
 </style>

@@ -5,6 +5,7 @@
       class="tabcontrol-item"
       @click="clicked(index)"
       :class="{ active: currentIndex === index }"
+      :key="item"
     >
       <span>{{ item }}</span>
     </div>
@@ -32,6 +33,7 @@ export default {
   computed: {},
   methods: {
     clicked(index) {
+      this.$emit("onClicked", index);
       return (this.currentIndex = index);
     },
   },

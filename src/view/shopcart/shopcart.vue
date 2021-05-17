@@ -17,9 +17,7 @@ export default {
   watch: {},
   computed: {},
   methods: {},
-  created() {
-    console.log(this.a);
-  },
+  created() {},
   mounted() {},
 };
 </script>

@@ -6,10 +6,13 @@
 
     <RecommendGoods :recommendGoods="recommendGoods" />
     <Feature />
-    <TabbarControl :title="['流行', '新款', '精选']" class="tab-control" />
-    <BetterScroll>
-      <GoodsList :goods="goods.pop.list" />
-    </BetterScroll>
+    <TabbarControl
+      :title="['流行', '新款', '精选']"
+      class="tab-control"
+      @onClicked="changeGoodType"
+    />
+
+    <GoodsList :goods="goods[goodType].list" />
 
     <ReturnTop @clickReturnTop="clickReturnTop" />
   </div>
@@ -55,16 +58,14 @@ export default {
       banners: [],
       page: 1,
       recommendGoods: [],
-      // goods: {
-      //   pop: { page: 0, list: [] },
-      //   new: { page: 0, list: [] },
-      //   sell: { page: 0, list: [] },
-      // },
+
       goods: {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      goodTypeArray: ["pop", "new", "sell"],
+      goodType: "pop",
     };
   },
   watch: {},
@@ -83,8 +84,12 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
+      console.log(this.goods);
     },
     clickReturnTop() {},
+    changeGoodType(index) {
+      this.goodType = this.goodTypeArray[index];
+    },
   },
 
   created() {
@@ -99,11 +104,6 @@ export default {
 };
 </script>
 <style scoped>
-.wrapper {
-  height: 100vh;
-  overflow: hidden;
-}
-
 .navbar {
   background-color: pink;
   color: #fff;
