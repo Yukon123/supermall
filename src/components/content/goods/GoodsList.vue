@@ -3,6 +3,7 @@
   <div class="goods-list">
     <GoodsListItem
       v-for="(item, index) in goods"
+      :key="index"
       :goodsItem="item"
     ></GoodsListItem>
   </div>
@@ -10,7 +11,7 @@
 
 <script>
 import GoodsListItem from "./GoodsListItem";
-
+//goodsitem 要加id
 export default {
   name: "GoodsList",
   components: { GoodsListItem },
@@ -18,7 +19,7 @@ export default {
     goods: {
       type: Array,
       default() {
-        return {};
+        return [];
       },
     },
   },
@@ -39,6 +40,6 @@ export default {
   justify-content: space-around;
 
   padding: 2px;
-  z-index: 4;
+  /* z-index: 4; */
 }
 </style>

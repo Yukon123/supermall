@@ -34,7 +34,7 @@ export default {
   methods: {
     clicked(index) {
       this.$emit("onClicked", index);
-      return (this.currentIndex = index);
+      this.currentIndex = index;
     },
   },
   created() {},
@@ -43,15 +43,12 @@ export default {
 </script>
 <style scoped>
 .tabcontrol {
-  height: 45px;
-  line-height: 45px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   font-size: 14px;
   display: flex;
-  position: fixed;
-  top: 44px;
   background-color: #fff;
-  z-index: 8;
 }
 .tabcontrol-item {
   flex: 1;

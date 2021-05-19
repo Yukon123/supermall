@@ -8,7 +8,7 @@
     <SwiperSlide v-for="(item, index) in banners" :key="index">
       <div class="slide-item">
         <a :href="item.link">
-          <img :src="item.image" alt="" />
+          <img :src="item.image" alt="" @load="imgLoad" />
         </a>
       </div>
     </SwiperSlide>
@@ -56,20 +56,23 @@ export default {
       return this.$refs.mySwiper.swiper;
     },
   },
-
+  methods: {
+    imgLoad() {
+      this.$emit("swiperImgLoad");
+    },
+  },
   updated() {
-    console.log("Current Swiper instance object", this.swiper);
+    // console.log("Current Swiper instance object", this.swiper);
   },
 };
 </script>
 <style scoped>
-
 .slide-item {
   font-size: 0;
 }
 
 .slide-item img {
   width: 100%;
-  padding-top: 44px;
+  /* padding-top: 44px; */
 }
 </style>

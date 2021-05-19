@@ -1,12 +1,7 @@
 <template>
     
   <div class="">
-    <img
-      @click="onClick"
-      v-show="isShow"
-      src="~assets/img/common/top.png"
-      alt=""
-    />
+    <img src="~assets/img/common/top.png" alt="" />
   </div>
 </template>
 
@@ -25,9 +20,9 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    onClick() {
-      this.$emit("clickReturnTop");
-    },
+    // onClick() {
+    //   this.$emit("clickReturnTop");
+    // },
   },
   created() {},
   mounted() {},
@@ -42,5 +37,7 @@ div img {
   position: fixed;
   right: 10px;
   bottom: 55px;
+
+  z-index: 15;
 }
 </style>
