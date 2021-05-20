@@ -9,5 +9,4 @@ Vue.prototype.$bus = new Vue();
 new Vue({
     render: h => h(App),
     router,
-
 }).$mount('#app')

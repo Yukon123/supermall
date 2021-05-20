@@ -123,7 +123,6 @@ export default {
     scrollMethod(position) {
       this.isBackTop = -position.y > 1000;
       this.showTabControl = -position.y > this.offsetTop;
-
       // console.log(this.showTabControl);
       // // console.log(position);
       // console.log(this.showTabControl);
@@ -139,10 +138,8 @@ export default {
 
   created() {
     this.$nextTick(() => {
-      // console.log(this);
       this.getMulData();
       this.getProductData("new");
-      // console.log("jieshoudaole");
       this.getProductData("pop");
       // console.log("jieshoudaole");
       this.getProductData("sell");
@@ -150,19 +147,19 @@ export default {
     });
   },
 
-  mounted() {
-    // console.log(this._uid); // 输出9
-    // this.$nextTick(() => {
-    //   console.log(this._uid); //输出9
-    // });
-    // (() => {
-    //   console.log(this._uid); //输出9
-    // })();
-    // () => {
-    //   console.log(this._uid); //没有值 因为只是个函数定义
-    // };
-    // this.$watch("isBackTop", () => this.test()); //打印出找到this了
-  },
+  mounted() {},
+  // console.log(this._uid); // 输出9
+  // this.$nextTick(() => {
+  //   console.log(this._uid); //输出9
+  // });
+  // (() => {
+  //   console.log(this._uid); //输出9
+  // })();
+  // () => {
+  //   console.log(this._uid); //没有值 因为只是个函数定义
+  // };
+  // this.$watch("isBackTop", () => this.test()); //打印出找到this了
+
   // this.getProductData("new");
   // this.getProductData("pop");
   // this.getProductData("sell");

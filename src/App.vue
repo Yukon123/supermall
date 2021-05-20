@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <RouterView />
+    <keep-alive><RouterView /></keep-alive>
     <MainTabbar />
   </div>
 </template>
