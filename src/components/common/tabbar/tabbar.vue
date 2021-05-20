@@ -1,5 +1,4 @@
 <template>
-   
   <div id="tabbar">
     <slot></slot>
   </div>
@@ -7,7 +6,7 @@
 
 <script>
 export default {
-  name: "tabbar",
+  name: "Tabbar",
   components: {},
   props: {},
   data() {

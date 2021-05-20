@@ -1,5 +1,4 @@
 <template>
-    
   <div id="home">
     <Navbar class="home-nav"> <div slot="center">购物街</div> </Navbar>
     <TabbarControl
@@ -12,7 +11,7 @@
     <BetterScroll
       class="home-scroll"
       ref="scroll"
-      :probeType="3"
+      :probeType="2"
       :pullUpLoad="true"
       @loadMore="loadMoreGood"
       @scroll="scrollMethod"
@@ -36,14 +35,12 @@
 import Navbar from "components/common/navbar/Navbar";
 import BetterScroll from "components/common/scroll/BetterScroll";
 import MySwiper from "components/common/swiper/MySwiper";
-
 import GoodsList from "components/content/goods/GoodsList";
 import TabbarControl from "components/content/TabbarControl";
 import ReturnTop from "components/content/ReturnTop";
 
 import RecommendGoods from "./childcomps/RecommendGoods";
 import Feature from "./childcomps/Feature";
-
 import { getMulData, getProductData } from "network/homenet";
 
 export default {
@@ -100,7 +97,6 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
-      // this.$refs.scroll.finishPullUp();
     },
 
     // 函数方法
@@ -108,18 +104,18 @@ export default {
       this.$refs.scroll.returnTop();
     },
     changeGoodType(index) {
-      // this.goodType = this.goodTypeArray[index]; //自己写的感觉更简洁
-      switch (index) {
-        case 0:
-          this.goodType = "pop";
-          break;
-        case 1:
-          this.goodType = "new";
-          break;
-        case 2:
-          this.goodType = "sell";
-          break;
-      }
+      this.goodType = this.goodTypeArray[index]; //自己写的感觉更简洁
+      // switch (index) {
+      //   case 0:
+      //     this.goodType = "pop";
+      //     break;
+      //   case 1:
+      //     this.goodType = "new";
+      //     break;
+      //   case 2:
+      //     this.goodType = "sell";
+      //     break;
+      // }
       this.$refs.tabControl.currentIndex = index;
       this.$refs.tabControlBackup.currentIndex = index;
     },
@@ -127,6 +123,7 @@ export default {
     scrollMethod(position) {
       this.isBackTop = -position.y > 1000;
       this.showTabControl = -position.y > this.offsetTop;
+
       // console.log(this.showTabControl);
       // // console.log(position);
       // console.log(this.showTabControl);
@@ -135,40 +132,60 @@ export default {
     tabControlOffset() {
       this.offsetTop = this.$refs.tabControl.$el.offsetTop;
     },
+    test() {
+      console.log("找到this了");
+    },
   },
 
   created() {
-    this.getMulData();
     this.$nextTick(() => {
+      // console.log(this);
+      this.getMulData();
       this.getProductData("new");
-
+      // console.log("jieshoudaole");
       this.getProductData("pop");
-
+      // console.log("jieshoudaole");
       this.getProductData("sell");
+      // console.log("jieshoudaole");
     });
   },
 
   mounted() {
-    // this.getProductData("new");
-    // this.getProductData("pop");
-    // this.getProductData("sell");
-    // //监听图片加载的实时wrapper高度;
-    // this.$bus.$on("imgLoad", () => {
-    //   console.log("jieshoudaole");
-    //   this.$refs.scroll.imgLoad();
+    // console.log(this._uid); // 输出9
+    // this.$nextTick(() => {
+    //   console.log(this._uid); //输出9
     // });
-    //vm.$nextTick：保证的是所有的子组件都挂载上去  子组件上面的内容不能保证
-    // this.$nextTick(function () {
-    //   console.log(this.$refs.tabControl.$el.offsetTop);
-    //   this.offsetTop = this.$refs.tabControl.$el.offsetTop;
-    //   console.log(this.offsetTop);
-    // });
+    // (() => {
+    //   console.log(this._uid); //输出9
+    // })();
+    // () => {
+    //   console.log(this._uid); //没有值 因为只是个函数定义
+    // };
+    // this.$watch("isBackTop", () => this.test()); //打印出找到this了
   },
+  // this.getProductData("new");
+  // this.getProductData("pop");
+  // this.getProductData("sell");
+  // //监听图片加载的实时wrapper高度;
+  // this.$bus.$on("imgLoad", () => {
+  //   console.log("jieshoudaole");
+  //   this.$refs.scroll.imgLoad();
+  // });
+  //vm.$nextTick：保证的是所有的子组件都挂载上去  子组件上面的内容不能保证
+  // this.$nextTick(function () {
+  //   console.log(this);
+  //   this.offsetTop = this.$refs.tabControl.$el.offsetTop;
+  //   console.log(this.offsetTop);
+  // });
 
-  updated() {},
+  updated() {
+    // () => {
+    //   console.log(this);
+    // };  取不到值
+  },
 };
 </script>
-<style scoped>
+<style scoped>
 .tabControlBackup {
   position: relative;
   z-index: 10;

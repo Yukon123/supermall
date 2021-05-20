@@ -1,9 +1,7 @@
 <template>
     
   <div class="wrapper" ref="wrapper">
-    <div class="content">
-      <slot></slot>
-    </div>
+    <div class="content"><slot></slot></div>
     <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
   </div>
 </template>
@@ -12,7 +10,7 @@
 import BScroll from "better-scroll";
 
 export default {
-  name: "",
+  name: "BetterScroll",
   components: {},
   props: {
     probeType: {
