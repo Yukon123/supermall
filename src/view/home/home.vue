@@ -15,7 +15,9 @@
       :pullUpLoad="true"
       @loadMore="loadMoreGood"
       @scroll="scrollMethod"
+      :currentPosition="currentPosition"
     >
+      <!-- :currentIndex="currentIndex" -->
       <MySwiper :banners="banners" @swiperImgLoad.once="tabControlOffset" />
       <RecommendGoods :recommendGoods="recommendGoods" />
       <Feature />
@@ -32,16 +34,16 @@
 </template>
 
 <script>
-import Navbar from "components/common/navbar/Navbar";
-import BetterScroll from "components/common/scroll/BetterScroll";
-import MySwiper from "components/common/swiper/MySwiper";
-import GoodsList from "components/content/goods/GoodsList";
-import TabbarControl from "components/content/TabbarControl";
-import ReturnTop from "components/content/ReturnTop";
+import Navbar from "@/components/common/navbar/Navbar";
+import BetterScroll from "@/components/common/scroll/BetterScroll";
+import MySwiper from "@/components/common/swiper/MySwiper";
+import GoodsList from "@/components/content/goods/GoodsList";
+import TabbarControl from "@/components/content/TabbarControl";
+import ReturnTop from "@/components/content/ReturnTop";
 
 import RecommendGoods from "./childcomps/RecommendGoods";
 import Feature from "./childcomps/Feature";
-import { getMulData, getProductData } from "network/homenet";
+import { getMulData, getProductData } from "@/network/homenet";
 
 export default {
   name: "Home",
@@ -75,6 +77,8 @@ export default {
       isBackTop: false,
       offsetTop: 0,
       showTabControl: false,
+      currentPosition: [0, 0, 0],
+      currentIndex: 0,
     };
   },
   watch: {},
@@ -104,7 +108,10 @@ export default {
       this.$refs.scroll.returnTop();
     },
     changeGoodType(index) {
-      this.goodType = this.goodTypeArray[index]; //自己写的感觉更简洁
+      this.currentIndex = index;
+      this.$refs.scroll.currentIndex = index;
+      this.goodType = this.goodTypeArray[index];
+      //自己写的感觉更简洁
       // switch (index) {
       //   case 0:
       //     this.goodType = "pop";
@@ -118,21 +125,58 @@ export default {
       // }
       this.$refs.tabControl.currentIndex = index;
       this.$refs.tabControlBackup.currentIndex = index;
+      //发射当前位置给当前数组
+      if (this.showTabControl) {
+        this.$refs.scroll.scrollLastPosition();
+      }
+
+      //console.log(this.currentPosition);
+
+      // if (this.currentPosition[index]) {
+      //   console.log("5555");
+      //   this.$refs.scroll.scrollLastPosition();
+      // }
+      // console.log(this.currentPosition[index]);
     },
-    //滚动
+    //滚动函数 和位置有关
     scrollMethod(position) {
-      this.isBackTop = -position.y > 1000;
-      this.showTabControl = -position.y > this.offsetTop;
-      // console.log(this.showTabControl);
-      // // console.log(position);
-      // console.log(this.showTabControl);
+      this.isBackTop = -position.y > 1000; //小图标返回判断
+      this.showTabControl = -position.y > this.offsetTop; //第一个tabcontrol显示判断
+      //传入tabcontrol位置数组
+      this.currentPosition[this.currentIndex] = position.y;
+
+      if (this.showTabControl) {
+        this.currentPosition.forEach(function (value, index, arr) {
+          arr[index] = value > -615 ? -615 : arr[index];
+        });
+      }
     },
+    //一旦显示了 就给小于这个值的附初始值,然后滚动
+    //给数组直接附初始值比较快
+    // console.log("为真");
+    // console.log(this.currentPosition);
+    // () => console.log(this, "555");
+    // //615是当前tabbarcontrol的offsettop的值
+    // if (value > -615) {
+    //   // value = -_self.offsetTop;
+    //   arr[index] = -615;
+    // value = -615;
+
+    // console.log("value大于615", index, value);
+    // }
+
+    // console.log(index);
+    // console.log(arr);
+
+    // value = value < -615 ? -615 : value;
+
+    // console.log(this.showTabControl);
+    // // console.log(position);
+    // console.log(this.showTabControl);
+
     //图片加载后计算tabbar的offset
     tabControlOffset() {
       this.offsetTop = this.$refs.tabControl.$el.offsetTop;
-    },
-    test() {
-      console.log("找到this了");
     },
   },
 
@@ -141,9 +185,7 @@ export default {
       this.getMulData();
       this.getProductData("new");
       this.getProductData("pop");
-      // console.log("jieshoudaole");
       this.getProductData("sell");
-      // console.log("jieshoudaole");
     });
   },
 

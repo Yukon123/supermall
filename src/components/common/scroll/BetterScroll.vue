@@ -21,11 +21,18 @@ export default {
       Type: Boolean,
       default: false,
     },
+    currentPosition: {
+      Type: Array,
+      default() {
+        return [];
+      },
+    },
   },
   data() {
     return {
       scroll: null,
       message: "hhh",
+      currentIndex: 0,
     };
   },
   watch: {},
@@ -43,6 +50,12 @@ export default {
     },
     finishPullUp() {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
+    },
+    //滚动回最后位置函数
+    scrollLastPosition() {
+      this.scroll &&
+        this.scroll.scrollTo &&
+        this.scroll.scrollTo(0, this.currentPosition[this.currentIndex], 0); //父传子 $refs传过来的
     },
   },
 

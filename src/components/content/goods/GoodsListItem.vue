@@ -1,6 +1,6 @@
 <template>
     
-  <div class="goods-list-item">
+  <div class="goods-list-item" @click="goodsClick">
     <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -30,6 +30,23 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit("imgLoad");
+    },
+    goodsClick() {
+      // this.$router.push("/detail/" + this.goodsItem.iid);
+      //query传递的方式
+      // this.$router.push({
+      //   name: "detail",
+      //   query: {
+      //     iid: this.goodsItem.iid,
+      //   },
+      // });
+      this.$router.push({
+        name: "detail",
+        params: {
+          iid: this.goodsItem.iid,
+        },
+      });
+      console.log("详情图点击");
     },
   },
   created() {},
