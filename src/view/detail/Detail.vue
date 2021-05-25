@@ -11,19 +11,30 @@
       <DetailSwiper
         :topImage="topImage"
         v-if="topImage && topImage.length > 0"
+        @detailSwiperload="ParamsOffsetTopDetail"
       />
       <DetailBaseInfo :goods="goods" />
       <DetailShopInfo :shop="shop" />
-      <DetailGoodsinfo :goodsInfo="goodsInfo" />
-      <DetailParamInfo :paramInfo="paramInfo" />
-      <DetailCommentInfo :commentInfo="commentInfo" />
+      <DetailGoodsinfo
+        :goodsInfo="goodsInfo"
+        @detailGoodsInfoLoad="ParamsOffsetTopDetail"
+      />
+      <DetailParamInfo :paramInfo="paramInfo" ref="detailParam" />
+      <DetailCommentInfo :commentInfo="commentInfo" ref="detailComment" />
+      <DetailRecommendInfo :goods="recommendInfo" ref="detailRecommend" />
     </BetterScroll>
   </div>
 </template>
 
 <script>
 import BetterScroll from "@/components/common/scroll/BetterScroll";
-import { getDetailData, Goods, GoodsParam, Shop } from "@/network/detail";
+import {
+  getDetailData,
+  getRecommendInfo,
+  Goods,
+  GoodsParam,
+  Shop,
+} from "@/network/detail";
 import DetailNavbar from "./childcomps/DetailNavbar";
 import DetailSwiper from "./childcomps/DetailSwiper";
 import DetailBaseInfo from "./childcomps/DetailBaseInfo";
@@ -31,6 +42,7 @@ import DetailShopInfo from "./childcomps/DetailShopInfo";
 import DetailGoodsinfo from "./childcomps/DetailGoodsinfo";
 import DetailParamInfo from "./childcomps/DetailParamInfo";
 import DetailCommentInfo from "./childcomps/DetailCommentInfo";
+import DetailRecommendInfo from "@/components/content/goods/GoodsList";
 
 export default {
   name: "Detail",
@@ -43,6 +55,7 @@ export default {
     DetailGoodsinfo,
     DetailParamInfo,
     DetailCommentInfo,
+    DetailRecommendInfo,
   },
   props: {},
   data() {
@@ -54,16 +67,31 @@ export default {
       goodsInfo: {},
       paramInfo: {},
       commentInfo: {},
+      recommendInfo: [],
+      paramOffsetTop: 0,
+      commentOffsetTop: 0,
+      recommendOffsetTop: 0,
     };
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    //计算各个组件的offsetTop
+    ParamsOffsetTopDetail() {
+      console.log("接收到了计算offsetTop");
+      this.paramOffsetTop = this.$refs.detailParam.$el.offsetTop;
+      this.commentOffsetTop = this.$refs.detailComment.$el.offsetTop;
+      this.recommendOffsetTop = this.$refs.detailRecommend.$el.offsetTop;
+      console.log(this.paramOffsetTop);
+      console.log(this.commentOffsetTop);
+      console.log(this.recommendOffsetTop);
+    },
+  },
   created() {
     this.iid = this.$route.query.iid || this.$route.params.iid;
     //请求数据 并存入一个对象中,比较容易存取
     getDetailData(this.iid).then((res) => {
-      console.log(res);
+      console.log("detail", res);
       this.topImage = res.result.itemInfo.topImages;
       this.goods = new Goods(
         res.result.itemInfo,
@@ -85,6 +113,12 @@ export default {
       console.log("commentInfo", this.commentInfo);
 
       // this.topImage = res.data.banner.list;
+    });
+    getRecommendInfo().then((res) => {
+      // console.log(res);
+      this.recommendInfo = res.data.list;
+      // console.log(res);
+      // console.log(this.recommendInfo);
     });
   },
   mounted() {},

@@ -12,6 +12,7 @@
         :src="item"
         alt=""
         :key="index"
+        @load="detailGoodsInfoLoad()"
       />
     </div>
   </div>
@@ -28,11 +29,21 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      imgCount: 0,
+    };
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    detailGoodsInfoLoad() {
+      this.imgCount++;
+      //console.log(this.imgCount);
+      if (this.imgCount == this.goodsInfo.detailImage[0].list.length) {
+        this.$emit("detailGoodsInfoLoad");
+      }
+    },
+  },
   created() {},
   mounted() {},
 };

@@ -5,7 +5,7 @@
       :key="item"
       class="swiper-slide"
     >
-      <img :src="topImage[index]" alt="" />
+      <img :src="topImage[index]" alt="" @load="imgLoad" />
     </SwiperSlide>
     <div class="swiper-pagination" slot="pagination"></div>
   </Swiper>
@@ -41,11 +41,21 @@ export default {
           el: ".swiper-pagination",
         },
       },
+      imgCount: 0,
     };
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    imgLoad() {
+      this.imgCount++;
+      // console.log(this.imgCount);
+      if (this.imgCount == this.topImage.length) {
+        this.$emit("detailSwiperload");
+      }
+    },
+  },
+
   created() {},
   mounted() {},
 };

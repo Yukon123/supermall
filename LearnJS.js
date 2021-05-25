@@ -50,10 +50,22 @@ console.log('filter输出新数组c', e);
 
 
 //concat
-let f = [a, b, h, c, g, e]
-let g = [s, z, q]
-let b = f.reverse()
-console.log(b);
-console.log(f);
 
+
+//逻辑非测试
+let numsObj = {
+    count: {
+        nums: 1
+    },
+    obj: 5
+}
+
+var notbar = function () {
+    return numsObj.aaa || numsObj.count.nums
+}
+var notfoo = function () {
+    return numsObj.aaa.bbb || numsObj.count.nums
+}
+console.log(notbar());
+console.log(notfoo());
 
