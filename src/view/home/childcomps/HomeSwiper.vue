@@ -5,7 +5,7 @@
     :options="swiperOptions"
     v-if="banners && banners.length > 0"
   >
-    <SwiperSlide v-for="(item, index) in banners" :key="index">
+    <SwiperSlide v-for="item in banners" :key="item.link">
       <div class="slide-item">
         <a :href="item.link">
           <img :src="item.image" alt="" @load="imgLoad" />

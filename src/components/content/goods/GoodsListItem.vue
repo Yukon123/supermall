@@ -46,7 +46,7 @@ export default {
           iid: this.goodsItem.iid,
         },
       });
-      console.log("详情图点击");
+      // console.log("详情图点击");
     },
   },
   created() {},

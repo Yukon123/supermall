@@ -18,9 +18,9 @@
       :currentPosition="currentPosition"
     >
       <!-- :currentIndex="currentIndex" -->
-      <MySwiper :banners="banners" @swiperImgLoad.once="tabControlOffset" />
-      <RecommendGoods :recommendGoods="recommendGoods" />
-      <Feature />
+      <HomeSwiper :banners="banners" @swiperImgLoad.once="tabControlOffset" />
+      <HomeRecommendGoods :recommendGoods="recommendGoods" />
+      <HomeFeature />
       <TabbarControl
         :title="['流行', '新款', '精选']"
         class="tab-control"
@@ -36,13 +36,14 @@
 <script>
 import Navbar from "@/components/common/navbar/Navbar";
 import BetterScroll from "@/components/common/scroll/BetterScroll";
-import MySwiper from "@/components/common/swiper/MySwiper";
+
 import GoodsList from "@/components/content/goods/GoodsList";
 import TabbarControl from "@/components/content/TabbarControl";
 import ReturnTop from "@/components/content/ReturnTop";
 
-import RecommendGoods from "./childcomps/RecommendGoods";
-import Feature from "./childcomps/Feature";
+import HomeRecommendGoods from "./childcomps/HomeRecommendGoods";
+import HomeFeature from "./childcomps/HomeFeature";
+import HomeSwiper from "./childcomps/HomeSwiper";
 import { getMulData, getProductData } from "@/network/homenet";
 
 export default {
@@ -50,14 +51,14 @@ export default {
   components: {
     Navbar,
     BetterScroll,
-    MySwiper,
 
     TabbarControl,
     GoodsList,
     ReturnTop,
 
-    RecommendGoods,
-    Feature,
+    HomeRecommendGoods,
+    HomeFeature,
+    HomeSwiper,
   },
   props: {},
   data() {
@@ -87,6 +88,7 @@ export default {
     loadMoreGood() {
       this.getProductData(this.goodType);
     },
+
     //网络请求相关方法
     getMulData() {
       getMulData().then((res) => {

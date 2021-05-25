@@ -40,7 +40,7 @@ export default {
   methods: {
     imgBackClick() {
       //   this.$router.go(-1);//this.$router.go(-1)  应该是router 大路由
-      this.$router.back();
+      this.$router.go(-1);
     },
     centerClick(index) {
       this.currentIndex = index;

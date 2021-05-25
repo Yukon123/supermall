@@ -2,7 +2,11 @@
     
   <div>
     <div class="recommend-goods">
-      <div v-for="item in recommendGoods" class="recommend-goods-item">
+      <div
+        v-for="(item, index) in recommendGoods"
+        class="recommend-goods-item"
+        :key="index"
+      >
         <a :href="item.link">
           <img :src="item.image" alt="" />
           <div>{{ item.title }}</div>
