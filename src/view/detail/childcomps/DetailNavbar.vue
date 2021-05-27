@@ -44,6 +44,7 @@ export default {
     },
     centerClick(index) {
       this.currentIndex = index;
+      this.$emit("clickNavbarDetail", index);
     },
   },
   created() {},

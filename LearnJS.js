@@ -53,19 +53,90 @@ console.log('filter输出新数组c', e);
 
 
 //逻辑非测试
-let numsObj = {
-    count: {
-        nums: 1
-    },
-    obj: 5
-}
+// let numsObj = {
+//     count: {
+//         nums: 1
+//     },
+//     obj: 5
+// }
 
-var notbar = function () {
-    return numsObj.aaa || numsObj.count.nums
-}
-var notfoo = function () {
-    return numsObj.aaa.bbb || numsObj.count.nums
-}
-console.log(notbar());
-console.log(notfoo());
+// var notbar = function () {
+//     return numsObj.aaa || numsObj.count.nums
+// }
+// var notfoo = function () {
+//     // return numsObj.aaa.bbb || numsObj.count.nums
+// }
+// console.log(notbar());
+// console.log(notfoo());
 
+
+// let cartArr = [1, 2, 3];
+// for (let value of cartArr) {
+//     value += 1
+//     console.log(value);
+// }
+// console.log(cartArr);
+
+// var cartList = [];
+
+// let old = true
+// console.log(old);
+
+// cartList.length = 5
+// console.log(cartList);
+
+// for (let value of cartList) {
+//     if (value !== 5) {
+//         old = false
+//         console.log("5555");
+//     }
+// }
+// cartList.push(1)
+// console.log(cartList);
+// console.log(old);
+
+
+var list = [];
+var list1 = [1];
+var list2 = [2];
+var list3 = [3]
+var info = [{ iid: 3 }]
+list.length = 0;
+list1.length = 4;
+list2.length = 4;
+
+var lista = list.map(function (item) {
+    return item + 1;
+    console.log("11111");
+})
+console.log(lista);
+
+
+list1.forEach(function (item, index, arr) {
+    arr[index] = item + 1
+    console.log("11111");
+})
+
+for (var p in list2) {
+    list2[p] = 1
+    console.log("11111");
+
+}
+var list3 = []
+var info = [{ iid: 3 }]
+const oldInfo = list3.find(value => value.iid.bbb === info.iid)
+console.log(oldInfo);
+
+console.log(list);  //Array [ <4 empty slots> ]
+console.log(list1)  //Array [ <4 empty slots> ]
+console.log(list2); //Array [ <4 empty slots> ]
+
+let fuc = 5,
+function aaa() {
+
+    if (1) {
+        fuc += 1
+    }
+    console.log(fuc);
+}
+aaa();

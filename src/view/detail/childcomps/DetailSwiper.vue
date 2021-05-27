@@ -48,11 +48,13 @@ export default {
   computed: {},
   methods: {
     imgLoad() {
-      this.imgCount++;
+      //主要监听的是goods列表的加载
+      //没啥必要监听swiper图片的加载  因为goods图片加载完成后 还是点击跳转位置就错了
+      // this.$emit("detailSwiperload");
       // console.log(this.imgCount);
-      if (this.imgCount == this.topImage.length) {
-        this.$emit("detailSwiperload");
-      }
+      // if (this.imgCount == this.topImage.length) {
+      //   this.$emit("detailSwiperload");
+      // }
     },
   },
 

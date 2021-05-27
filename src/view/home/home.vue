@@ -107,7 +107,7 @@ export default {
 
     // 函数方法
     clickReturnTop() {
-      this.$refs.scroll.returnTop();
+      this.$refs.scroll.scrollToClick(0, 1000);
     },
     changeGoodType(index) {
       this.currentIndex = index;

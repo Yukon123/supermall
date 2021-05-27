@@ -42,12 +42,6 @@ export default {
       this.scroll && this.scroll.refresh && this.scroll.refresh();
     },
 
-    //返回上面TabControl
-    returnTop() {
-      this.scroll &&
-        this.scroll.scrollTo &&
-        this.scroll.scrollTo(0, -606, 1000);
-    },
     finishPullUp() {
       this.scroll && this.scroll.finishPullUp && this.scroll.finishPullUp();
     },
@@ -56,6 +50,16 @@ export default {
       this.scroll &&
         this.scroll.scrollTo &&
         this.scroll.scrollTo(0, this.currentPosition[this.currentIndex], 0); //父传子 $refs传过来的
+    },
+    //滚动到指定时间位置
+    scrollToClick(position, time) {
+      this.scroll &&
+        this.scroll.scrollTo &&
+        this.scroll.scrollTo(0, position, time);
+    },
+    newRefresh() {
+      this.scroll && this.scroll.refresh && this.scroll.refresh();
+      console.log("开始刷新了一次");
     },
   },
 
@@ -78,6 +82,7 @@ export default {
     //监听滚动
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
+      // console.log(position);
     });
     console.log(this.scroll);
   },

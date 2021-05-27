@@ -1,28 +1,30 @@
 <template>
     
   <div class="" id="detail">
-    <DetailNavbar />
+    <DetailNavbar @clickNavbarDetail="scrollToClick" ref="detailNavbar" />
     <BetterScroll
       class="detail-scroll"
       ref="detailScroll"
       :probeType="2"
       :pullUpLoad="true"
+      @scroll="scrollDetail"
     >
       <DetailSwiper
         :topImage="topImage"
         v-if="topImage && topImage.length > 0"
-        @detailSwiperload="ParamsOffsetTopDetail"
       />
       <DetailBaseInfo :goods="goods" />
       <DetailShopInfo :shop="shop" />
       <DetailGoodsinfo
         :goodsInfo="goodsInfo"
-        @detailGoodsInfoLoad="ParamsOffsetTopDetail"
+        @detailGoodsInfoLoad="calcOffsetTopDetail"
       />
       <DetailParamInfo :paramInfo="paramInfo" ref="detailParam" />
       <DetailCommentInfo :commentInfo="commentInfo" ref="detailComment" />
       <DetailRecommendInfo :goods="recommendInfo" ref="detailRecommend" />
     </BetterScroll>
+    <DetailBottomBar @addToCart="addToCart" />
+    <ReturnTop @click.native="clickReturnTop" v-show="isBackTop" />
   </div>
 </template>
 
@@ -43,6 +45,8 @@ import DetailGoodsinfo from "./childcomps/DetailGoodsinfo";
 import DetailParamInfo from "./childcomps/DetailParamInfo";
 import DetailCommentInfo from "./childcomps/DetailCommentInfo";
 import DetailRecommendInfo from "@/components/content/goods/GoodsList";
+import DetailBottomBar from "./childcomps/DetailBottomBar";
+import ReturnTop from "@/components/content/ReturnTop";
 
 export default {
   name: "Detail",
@@ -56,6 +60,8 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     DetailRecommendInfo,
+    DetailBottomBar,
+    ReturnTop,
   },
   props: {},
   data() {
@@ -71,20 +77,93 @@ export default {
       paramOffsetTop: 0,
       commentOffsetTop: 0,
       recommendOffsetTop: 0,
+      paramOffsetWidth: 0,
+      isBackTop: false,
+      refreshFlag: 1,
+      payload: {},
+      test: 0,
     };
   },
   watch: {},
   computed: {},
   methods: {
     //计算各个组件的offsetTop
-    ParamsOffsetTopDetail() {
+    calcOffsetTopDetail() {
+      this.$refs.detailScroll.newRefresh();
       console.log("接收到了计算offsetTop");
       this.paramOffsetTop = this.$refs.detailParam.$el.offsetTop;
       this.commentOffsetTop = this.$refs.detailComment.$el.offsetTop;
       this.recommendOffsetTop = this.$refs.detailRecommend.$el.offsetTop;
-      console.log(this.paramOffsetTop);
-      console.log(this.commentOffsetTop);
-      console.log(this.recommendOffsetTop);
+      this.paramOffsetWidth = this.$refs.detailParam.$el.offsetWidth;
+
+      console.log("参数", this.paramOffsetTop);
+      console.log("评论", this.commentOffsetTop);
+      console.log("推荐", this.recommendOffsetTop);
+    },
+    //滚动到navbar点击的位置
+    scrollToClick(index) {
+      // this.$refs.detailScroll.newRefresh();
+      let position = 0;
+      switch (index) {
+        case 0:
+          position = 0;
+          break;
+        case 1:
+          position = this.paramOffsetTop;
+          break;
+        case 2:
+          position = this.commentOffsetTop;
+          break;
+        case 3:
+          position = this.recommendOffsetTop;
+          break;
+      }
+      this.$refs.detailScroll.scrollToClick(-position, 1000);
+    },
+    scrollDetail(position) {
+      this.isBackTop = -position.y > 1000;
+      if (-position.y >= this.paramOffsetTop) {
+        this.$refs.detailNavbar.currentIndex = 1;
+        if (-position.y >= this.commentOffsetTop) {
+          this.$refs.detailNavbar.currentIndex = 2;
+          if (-position.y >= this.recommendOffsetTop) {
+            this.$refs.detailNavbar.currentIndex = 3;
+          }
+        }
+      } else {
+        this.$refs.detailNavbar.currentIndex = 0;
+      }
+    },
+    //
+    clickReturnTop() {
+      this.$refs.detailScroll.scrollToClick(0, 1000);
+    },
+
+    //添加到购物车
+    addToCart() {
+      const obj = {};
+      // 2.对象信息
+      obj.iid = this.iid;
+      // obj.imgURL = this.topImages[0];
+      obj.title = this.goods.title;
+      obj.desc = this.goods.desc;
+      obj.newPrice = this.goods.nowPrice;
+      obj.count = 1;
+      // console.log("1111111");
+
+      // console.log(this.$store.state.cartList);
+
+      // console.log(obj);
+
+      this.$store.dispatch("addCart", obj);
+      // console.log("2222222");
+      // console.log(this.test);
+      // this.test += 1;
+      // console.log(this.test);
+      console.log(
+        "购物车",
+        JSON.parse(JSON.stringify(this.$store.state.cartList))
+      );
     },
   },
   created() {
@@ -141,5 +220,7 @@ export default {
   bottom: 40px;
   left: 0;
   right: 0;
+
+  /* height: calc(100% -44px -40px); */
 }
 </style>
