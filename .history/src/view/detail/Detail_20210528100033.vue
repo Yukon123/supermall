@@ -158,13 +158,7 @@ export default {
       // console.log(this.$store.state.cartList);
 
       // console.log(obj);
-      this.addCart(obj).then((res) => {
-        console.log(this.$toast);
-
-        this.$toast.show(res, 2000);
-        console.log(res);
-      });
-
+      this.addCart(obj).then((res) => console.log(res));
       // this.$store.dispatch("addCart", obj).then((res) => console.log(res));
       // console.log("2222222");
       // console.log(this.test);

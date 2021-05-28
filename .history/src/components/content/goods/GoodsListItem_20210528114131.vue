@@ -41,7 +41,7 @@ export default {
       this.$bus.$emit("imgLoad");
     },
     goodsClick() {
-      // this.$router.push("/detail/" + this.goodsItem.iid); 可以push对象或者完整字符串d
+      // this.$router.push("/detail/" + this.goodsItem.iid); 可以push对象或者完整字符串
       //query传递的方式
       // this.$router.push({
       //   name: "detail",

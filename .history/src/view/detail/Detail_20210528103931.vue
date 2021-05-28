@@ -161,7 +161,7 @@ export default {
       this.addCart(obj).then((res) => {
         console.log(this.$toast);
 
-        this.$toast.show(res, 2000);
+        this.$toast.show(res, 1000);
         console.log(res);
       });
 
