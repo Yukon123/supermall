@@ -3,7 +3,8 @@ export default {
     [ADD_TO_CART](state, payload) {
         state.cartList.push(payload);
     },
-    [ADD_COUNT](context, oldInfo) {
+    [ADD_COUNT](state, oldInfo) {
         oldInfo.count++;
     }
+
 }
