@@ -54,9 +54,11 @@ export default {
 <style scoped>
 .navbar-left {
   margin-top: 7px;
+  touch-action: none;
 }
 .navbar-center {
   display: flex;
+  touch-action: none;
 }
 .navbar-center-item {
   flex: 1;

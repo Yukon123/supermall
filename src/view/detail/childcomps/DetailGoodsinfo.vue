@@ -1,9 +1,9 @@
 <template>
   <div v-if="Object.keys(goodsInfo).length !== 0" class="goods-info">
     <div class="info-desc clear-fix">
-      <div class="start"></div>
+      <div class="start left"></div>
       <div class="desc">{{ goodsInfo.desc }}</div>
-      <div class="end"></div>
+      <div class="end right"></div>
     </div>
     <div class="info-key">{{ goodsInfo.detailImage[0].key }}</div>
     <div class="info-list">
@@ -66,13 +66,13 @@ export default {
   position: relative;
 }
 
-.info-desc .start {
+/* .info-desc .start {
   float: left;
 }
 
 .info-desc .end {
   float: right;
-}
+} */
 
 .info-desc .start::before,
 .info-desc .end::after {

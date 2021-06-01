@@ -1,7 +1,7 @@
 <template>
     
   <div class="goods-list-item" @click="goodsClick">
-    <img :src="showImg" alt="" @load="imgLoad" />
+    <img v-lazy="showImg" alt="" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -37,9 +37,9 @@ export default {
     },
   },
   methods: {
-    imgLoad() {
-      this.$bus.$emit("imgLoad");
-    },
+    // imgLoad() {
+    //   this.$bus.$emit("imgLoad");
+    // },
     goodsClick() {
       // this.$router.push("/detail/" + this.goodsItem.iid); 可以push对象或者完整字符串d
       //query传递的方式
@@ -51,7 +51,8 @@ export default {
       // });
       this.$router.push({
         name: "detail",
-        params: {
+        params: { iid: this.goodsItem.iid || this.goodsItem.shop_id },
+        query: {
           iid: this.goodsItem.iid || this.goodsItem.shop_id,
         },
       });
@@ -66,13 +67,14 @@ export default {
 .goods-list-item {
   padding-bottom: 40px;
   position: relative;
-
   width: 48%;
 }
 
 .goods-list-item img {
   width: 100%;
   border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .goods-info {

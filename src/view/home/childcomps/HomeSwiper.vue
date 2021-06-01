@@ -4,6 +4,7 @@
     ref="mySwiper"
     :options="swiperOptions"
     v-if="banners && banners.length > 0"
+    class="swiper"
   >
     <SwiperSlide v-for="item in banners" :key="item.link">
       <div class="slide-item">
@@ -14,7 +15,6 @@
     </SwiperSlide>
 
     <div class="swiper-pagination" slot="pagination"></div>
-    <div></div>
   </Swiper>
 </template>
 
@@ -27,7 +27,7 @@ import {
 import "swiper/dist/css/swiper";
 
 export default {
-  name: "myswiper",
+  name: "MySwiper",
   props: {
     banners: {
       type: Array,
@@ -47,15 +47,12 @@ export default {
 
         pagination: {
           el: ".swiper-pagination",
+          bulletActiveClass: "my-bullet-active",
         },
       },
     };
   },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper;
-    },
-  },
+  computed: {},
   methods: {
     imgLoad() {
       this.$emit("swiperImgLoad");
@@ -67,12 +64,12 @@ export default {
 };
 </script>
 <style scoped>
-.slide-item {
-  font-size: 0;
-}
-
 .slide-item img {
   width: 100%;
   /* padding-top: 44px; */
+}
+.swiper /deep/.my-bullet-active {
+  background: red;
+  opacity: 1;
 }
 </style>

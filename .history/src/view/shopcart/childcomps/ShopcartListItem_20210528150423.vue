@@ -1,0 +1,119 @@
+<template>
+  <div id="list-item">
+    <div class="item-selector">
+      <CheckButton @click.native="checkedChange" :checked="item.checked" />
+    </div>
+    <div class="item-img"><img :src="item.image" alt="" /></div>
+    <div class="item-info">
+      <div class="item-title">{{ item.title }}</div>
+      <div class="item-desc">{{ item.desc }}</div>
+      <div class="item-bottom">
+        <div class="item-price left">{{ item.nowPrice }}</div>
+        <bottom class="right cut-bottom"> ＋ </bottom>
+        <div class="item-count right">{{ item.count }}</div>
+        <bottom class="right add-bottom"> － </bottom>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import CheckButton from "./CheckButton";
+export default {
+  name: "ShopitemItem",
+  components: { CheckButton },
+  props: {
+    item: {
+      Type: Object,
+      default: {},
+    },
+  },
+  data() {
+    return {};
+  },
+  watch: {},
+  computed: {
+    // ...mapGetters({
+    //   cartList: "cartList",
+    //   cartCount: "cartCount",
+    // }),
+  },
+  methods: {
+    checkedChange: function () {
+      this.item.checked = !this.item.checked;
+    },
+  },
+  created() {},
+  mounted() {},
+};
+</script>
+<style scoped>
+#list-item {
+  width: 100%;
+  display: flex;
+  font-size: 0;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.item-selector {
+  width: 14%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-title,
+.item-desc {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.item-img {
+  padding: 5px;
+  /*border: 1px solid #ccc;*/
+}
+
+.item-img img {
+  width: 80px;
+  height: 100px;
+  display: block;
+  border-radius: 5px;
+}
+
+.item-info {
+  font-size: 17px;
+  color: #333;
+  padding: 5px 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-info .item-desc {
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+}
+
+.item-bottom {
+  margin-top: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}
+
+.item-bottom .item-price {
+  color: orangered;
+}
+
+.cut-bottom {
+  width: 10px;
+  padding-bottom: 5px;
+}
+.add-bottom {
+  width: 10px;
+  padding-bottom: 5px;
+}
+</style>

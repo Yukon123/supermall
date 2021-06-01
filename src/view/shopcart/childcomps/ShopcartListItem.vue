@@ -9,7 +9,15 @@
       <div class="item-desc">{{ item.desc }}</div>
       <div class="item-bottom">
         <div class="item-price left">{{ item.nowPrice }}</div>
+        <div class="right add-button" @click="addClick">＋</div>
         <div class="item-count right">{{ item.count }}</div>
+        <div
+          class="right cut-button"
+          @click="cutClick"
+          :class="{ 'active-button': isButtonActive }"
+        >
+          －
+        </div>
       </div>
     </div>
   </div>
@@ -17,6 +25,7 @@
 
 <script>
 import CheckButton from "./CheckButton";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ShopitemItem",
   components: { CheckButton },
@@ -25,20 +34,35 @@ export default {
       Type: Object,
       default: {},
     },
+    itemIndex: {
+      Type: Number,
+    },
   },
   data() {
-    return {};
+    return {
+      isButtonActive: false,
+    };
   },
   watch: {},
   computed: {
-    // ...mapGetters({
-    //   cartList: "cartList",
-    //   cartCount: "cartCount",
-    // }),
+    ...mapGetters(["goodsCount"]),
   },
   methods: {
+    ...mapActions(["addCartCount", "cutCartCount", "changeGoodsChecked"]),
     checkedChange: function () {
-      this.item.checked = !this.item.checked;
+      // this.item.checked = !this.item.checked;
+      this.changeGoodsChecked(this.itemIndex);
+    },
+    addClick() {
+      this.isButtonActive = false;
+      this.addCartCount(this.item);
+    },
+    cutClick() {
+      this.cutCartCount(this.item).then((res) => {
+        this.$toast.show(res);
+      });
+      this.isButtonActive = this.item.count <= 1;
+      // this.isButtonActive = this.goodsCount(this.itemIndex) <= 1;
     },
   },
   created() {},
@@ -104,5 +128,26 @@ export default {
 
 .item-bottom .item-price {
   color: orangered;
+}
+
+.cut-button {
+  border-color: #fff;
+  width: 30px;
+  padding-bottom: 5px;
+  text-align: right;
+  background-color: #fff;
+  touch-action: none;
+}
+.add-button {
+  width: 30px;
+  padding-bottom: 5px;
+  touch-action: none;
+}
+.active-button {
+  color: #ccc;
+}
+.item-count {
+  width: 60px;
+  text-align: center;
 }
 </style>

@@ -5,7 +5,7 @@
       v-for="(item, index) in goods"
       :key="index"
       :goodsItem="item"
-    ></GoodsListItem>
+    />
   </div>
 </template>
 

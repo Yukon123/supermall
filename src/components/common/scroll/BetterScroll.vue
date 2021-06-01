@@ -2,12 +2,13 @@
     
   <div class="wrapper" ref="wrapper">
     <div class="content"><slot></slot></div>
-    <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
   </div>
 </template>
 
 <script>
 import BScroll from "better-scroll";
+import ObserveDOM from "@better-scroll/observe-dom";
+BScroll.use(ObserveDOM);
 
 export default {
   name: "BetterScroll",
@@ -21,6 +22,10 @@ export default {
       Type: Boolean,
       default: false,
     },
+    observeDOM: {
+      Type: Boolean,
+      default: true,
+    },
     currentPosition: {
       Type: Array,
       default() {
@@ -31,14 +36,13 @@ export default {
   data() {
     return {
       scroll: null,
-      message: "hhh",
       currentIndex: 0,
     };
   },
   watch: {},
   computed: {},
   methods: {
-    imgLoad() {
+    refresh() {
       this.scroll && this.scroll.refresh && this.scroll.refresh();
     },
 
@@ -57,10 +61,10 @@ export default {
         this.scroll.scrollTo &&
         this.scroll.scrollTo(0, position, time);
     },
-    newRefresh() {
-      this.scroll && this.scroll.refresh && this.scroll.refresh();
-      console.log("开始刷新了一次");
-    },
+    // newRefresh() {
+    //   this.scroll && this.scroll.refresh && this.scroll.refresh();
+    //   console.log("刷新了一次");
+    // },
   },
 
   created() {},
@@ -69,13 +73,14 @@ export default {
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
       click: true,
+      observeDOM: this.observeDOM,
       // ...... 详见配置项
     });
     //上拉加载
     this.scroll.on("pullingUp", () => {
       this.$emit("loadMore");
       //直接在上啦加载中刷新页面感觉也可以 更方便
-      this.scroll.refresh();
+      // this.scroll.refresh();
       setTimeout(() => this.finishPullUp(), 2000);
     });
 

@@ -9,13 +9,13 @@
       <div class="shop-middle-item shop-middle-left">
         <div class="info-sells">
           <div class="sells-count">
-            {{ shop.sells | sellCountFilter }}
+            {{ shopSellsFix }}
           </div>
           <div class="sells-text">总销量</div>
         </div>
         <div class="info-goods">
           <div class="goods-count">
-            {{ shop.goodsCount }}
+            {{ shopGoodsCount }}
           </div>
           <div class="goods-text">全部宝贝</div>
         </div>
@@ -50,20 +50,54 @@ export default {
       default: {},
     },
   },
-  filters: {
-    sellCountFilter: function (value) {
-      if (value < 10000) return value;
-      return (value / 10000).toFixed(1) + "万";
+  // filters: {
+  //   sellCountFilter: function (value) {
+  //     if (value < 10000) return value;
+  //     return (value / 10000).toFixed(1) + "万";
+  //   },
+  // },
+  data() {
+    return {
+      shopSells: 0,
+      shopGoodsCount: 0,
+    };
+  },
+  watch: {
+    "shop.sells": function (val) {
+      this.shopSells = val;
+    },
+    "shop.goodsCount": function (val) {
+      this.shopGoodsCount = val;
     },
   },
-  data() {
-    return {};
+  computed: {
+    shopSellsFix() {
+      return this.shopSells < 10000
+        ? this.shopSells
+        : (this.shopSells / 10000).toFixed(1) + "万";
+    },
   },
-  watch: {},
-  computed: {},
   methods: {},
-  created() {},
-  mounted() {},
+  created() {
+    // this.$nextTick(() => {
+    //   console.log(this.shop.sells);
+    //   this.shopSells = this.shop.sells;
+    //   console.log(this.shopSells);
+    //   console.log(this.shopSellsFix);
+    // });
+    // console.log("////////");
+    // console.log(this.shop.sells);
+    // this.shopSells = this.shop.sells;
+    // console.log(this.shopSells);
+    // console.log(this.shopSellsFix);
+  },
+  mounted() {
+    // this.$nextTick(() => {
+    //   this.shopSells = this.shop.sells;
+    //   console.log(this.shopSells);
+    //   console.log(this.shopSellsFix);
+    // });
+  },
 };
 </script>
 <style scoped>

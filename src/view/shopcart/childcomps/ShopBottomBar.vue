@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import CheckButton from "./CheckButton";
 export default {
   name: "ShopBottomBar",
@@ -25,8 +26,9 @@ export default {
   },
   watch: {},
   computed: {
+    ...mapGetters(["cartList", "cartCount"]),
     totalPrice() {
-      return this.$store.state.cartList
+      return this.cartList
         .filter((item) => item.checked)
         .reduce((preValue, item) => {
           return preValue + item.count * item.nowPrice;
@@ -34,24 +36,26 @@ export default {
         .toFixed(2);
     },
     totalCount() {
-      return this.$store.state.cartList.filter((item) => item.checked).length;
+      return this.cartList.filter((item) => item.checked).length;
     },
     isAllChecked() {
-      if (this.$store.state.cartList.length == 0) {
+      if (this.cartCount == 0) {
         return false;
       }
-      return !this.$store.state.cartList.find((item) => item.checked === false); //没找到假的返回undefined
-
-      //this.$refs.shopBottomBar.checkTag = !havefalse ? true : false;
+      return !this.cartList.find((item) => item.checked === false); //没找到假的返回undefined
     },
   },
   methods: {
+    ...mapActions(["allCheckButton"]),
     isChecked() {
-      if (this.isAllChecked) {
-        this.$store.state.cartList.forEach((value) => (value.checked = false));
-      } else {
-        this.$store.state.cartList.forEach((value) => (value.checked = true));
-      }
+      // this.cartList.forEach((value) => (value.checked = !this.isAllChecked));
+      this.allCheckButton(!this.isAllChecked);
+      // if (this.isAllChecked) {
+      //   this.cartList.forEach((value) => (value.checked = false));
+      // } else {
+      //   this.cartList.forEach((value) => (value.checked = true));
+      // }
+      console.log(this.isAllChecked);
     },
   },
   created() {},

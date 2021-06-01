@@ -29,9 +29,9 @@ export default {
 };
 </script>
 <style scoped>
-div {
+/* div {
   position: relative;
-}
+} */
 div img {
   width: 50px;
   position: fixed;

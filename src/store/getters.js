@@ -8,7 +8,12 @@ const getters = {
     },
     cartCount: (state) => {
         return state.cartList.length
+    },
+    goodsCount: (state) => (index) => {
+        return state.cartList[index].count
     }
+
 }
+
 
 export default getters

@@ -1,9 +1,10 @@
 <template>
-  <div class="">
+  <div class="shopcart-list">
     <ShopcartListItem
       v-for="(value, index) in cartList"
       :key="index"
       :item="value"
+      :itemIndex="index"
     />
   </div>
 </template>
@@ -20,10 +21,7 @@ export default {
   },
   watch: {},
   computed: {
-    ...mapGetters({
-      cartList: "cartList",
-      cartCount: "cartCount",
-    }),
+    ...mapGetters(["cartList", "cartCount"]),
   },
   methods: {},
   created() {},

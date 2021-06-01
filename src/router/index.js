@@ -26,6 +26,7 @@ const routes = [{
 },
 {
     path: '/home',
+    name: "home",
     component: Home,
 },
 {
@@ -40,8 +41,10 @@ const routes = [{
     component: Profile,
 },
 {
-    name: "detail",       // 给路由起名字   query 可以用name或者path  params只能用name属性或者 完整字符串
+    name: "detail",       // 给路由起名字   query 可以用name或者path 但是path里面不可以写动态参数
+    // params只能用name属性或者 完整字符串
     path: '/detail/:iid', //iid就是携带的参数  在push的时候加进去
+    // path: '/detail',
     component: Detail,
 },
 

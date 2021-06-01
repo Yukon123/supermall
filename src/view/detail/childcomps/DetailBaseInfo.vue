@@ -47,8 +47,8 @@ export default {
 </script>
 <style scoped>
 .base-info {
-  margin-top: 15px;
-  padding: 0 8px;
+  /* padding-top: 15px; */
+  padding: 15px 8px 0px;
   color: #999;
   border-bottom: 5px solid #f2f5f8;
 }
@@ -58,7 +58,7 @@ export default {
 }
 
 .info-price {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .info-price .new-price {
@@ -68,7 +68,7 @@ export default {
 
 .info-price .old-price {
   font-size: 13px;
-  margin-left: 5px;
+  padding-left: 5px;
   text-decoration: line-through;
 }
 
@@ -86,7 +86,7 @@ export default {
 }
 
 .info-other {
-  margin-top: 15px;
+  padding-top: 15px;
   line-height: 30px;
   display: flex;
   font-size: 13px;

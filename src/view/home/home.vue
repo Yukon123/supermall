@@ -17,13 +17,11 @@
       @scroll="scrollMethod"
       :currentPosition="currentPosition"
     >
-      <!-- :currentIndex="currentIndex" -->
       <HomeSwiper :banners="banners" @swiperImgLoad.once="tabControlOffset" />
       <HomeRecommendGoods :recommendGoods="recommendGoods" />
       <HomeFeature />
       <TabbarControl
         :title="['流行', '新款', '精选']"
-        class="tab-control"
         @onClicked="changeGoodType"
         ref="tabControl"
       />
@@ -73,7 +71,7 @@ export default {
       },
 
       goodTypeArray: ["pop", "new", "sell"],
-      goodType: "new",
+      goodType: "pop",
 
       isBackTop: false,
       offsetTop: 0,
@@ -98,16 +96,17 @@ export default {
     },
 
     getProductData(type) {
-      const page = this.goods[type].page + 1;
+      let page = this.goods[type].page + 1;
       getProductData(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
+
         this.goods[type].page += 1;
       });
     },
 
     // 函数方法
     clickReturnTop() {
-      this.$refs.scroll.scrollToClick(0, 1000);
+      this.$refs.scroll.scrollToClick(-615, 1000);
     },
     changeGoodType(index) {
       this.currentIndex = index;
@@ -149,9 +148,10 @@ export default {
 
       if (this.showTabControl) {
         this.currentPosition.forEach(function (value, index, arr) {
-          arr[index] = value > -615 ? -615 : arr[index];
+          arr[index] = value >= -615 ? -615 : arr[index];
         });
       }
+      // console.log(this.currentPosition);
     },
     //一旦显示了 就给小于这个值的附初始值,然后滚动
     //给数组直接附初始值比较快
@@ -183,11 +183,14 @@ export default {
   },
 
   created() {
+    console.log(this);
+
     this.$nextTick(() => {
       this.getMulData();
       this.getProductData("new");
       this.getProductData("pop");
       this.getProductData("sell");
+      // this.$refs.scroll.refresh();
     });
   },
 
@@ -260,8 +263,9 @@ export default {
 
   position: absolute;
   top: 44px;
-  bottom: 49px;
+  bottom: 47px;
   left: 0;
   right: 0;
+  /* height: calc(100% + 40px); */
 }
 </style>

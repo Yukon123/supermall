@@ -1,11 +1,11 @@
 <template>
-    <Swiper ref="detailSwiper" :options="swiperOptions">
+    <Swiper ref="detailSwiper" :options="swiperOptions" class="swiper-detail">
     <SwiperSlide
       v-for="(item, index) in topImage"
       :key="item"
-      class="swiper-slide"
+      class="swiper-slide-detail"
     >
-      <img :src="topImage[index]" alt="" @load="imgLoad" />
+      <img :src="topImage[index]" alt="" />
     </SwiperSlide>
     <div class="swiper-pagination" slot="pagination"></div>
   </Swiper>
@@ -39,6 +39,7 @@ export default {
 
         pagination: {
           el: ".swiper-pagination",
+          bulletActiveClass: "bullet-active-detail",
         },
       },
       imgCount: 0,
@@ -47,15 +48,15 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    imgLoad() {
-      //主要监听的是goods列表的加载
-      //没啥必要监听swiper图片的加载  因为goods图片加载完成后 还是点击跳转位置就错了
-      // this.$emit("detailSwiperload");
-      // console.log(this.imgCount);
-      // if (this.imgCount == this.topImage.length) {
-      //   this.$emit("detailSwiperload");
-      // }
-    },
+    // imgLoad() {
+    //   主要监听的是goods列表的加载
+    //   没啥必要监听swiper图片的加载  因为goods图片加载完成后 还是点击跳转位置就错了
+    //   this.$emit("detailSwiperload");
+    //   console.log(this.imgCount);
+    //   if (this.imgCount == this.topImage.length) {
+    //     this.$emit("detailSwiperload");
+    //   }
+    // },
   },
 
   created() {},
@@ -63,10 +64,14 @@ export default {
 };
 </script>
 <style scoped>
-.swiper-slide {
+.swiper-detail /deep/ .bullet-active-detail {
+  background-color: red;
+  opacity: 1;
+}
+.swiper-slide-detail {
   height: 300px;
 }
-.swiper-slide img {
+.swiper-slide-detail img {
   vertical-align: bottom;
   width: 100vw;
   text-align: center;

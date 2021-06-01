@@ -33,10 +33,11 @@ export default {
   },
   watch: {},
   computed: {
-    ...mapGetters({
-      cartList: "cartList",
-      cartCount: "cartCount",
-    }),
+    // ...mapGetters({
+    //   cartList: "cartList",
+    //   cartCount: "cartCount",
+    // }),
+    ...mapGetters(["cartList", "cartCount"]),
   },
   methods: {},
   created() {},
@@ -61,6 +62,6 @@ export default {
   left: 0;
   right: 0; */
   position: relative;
-  height: calc(100% - 44px - 106px);
+  height: calc(100% - 44px - 93px);
 }
 </style>

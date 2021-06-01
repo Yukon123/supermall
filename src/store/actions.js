@@ -1,4 +1,4 @@
-import { ADD_TO_CART, ADD_COUNT } from "./mutationsType"
+import { ADD_TO_CART, ADD_COUNT, ADD_CART_COUNT, CUT_CART_COUNT, CHANGE_GOODS_CHECKED, CHANGE_ALL_CHECKED } from "./mutationsType"
 export default {
     addCart({ commit, state }, payload) {
         // console.log("3333333");
@@ -20,5 +20,25 @@ export default {
         })
         // console.log("购物车", JSON.parse(JSON.stringify(context.state.cartList)));
 
+    },
+    addCartCount({ commit }, item) {
+        commit(ADD_CART_COUNT, item);
+    },
+    cutCartCount({ commit }, item) {
+        return new Promise((resolve) => {
+            if (item.count <= 1) {
+                resolve("该宝贝不能再减少了哦")
+                return;
+            }
+            commit(CUT_CART_COUNT, item);
+
+        })
+    },
+    changeGoodsChecked({ commit }, index) {
+        commit(CHANGE_GOODS_CHECKED, index)
+    },
+    allCheckButton({ commit }, flag) {
+        commit(CHANGE_ALL_CHECKED, flag)
     }
+
 }

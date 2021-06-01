@@ -2,8 +2,8 @@
   <div>
     <div v-if="Object.keys(commentInfo).length !== 0" class="comment-info">
       <div class="info-header">
-        <div class="header-title">用户评价</div>
-        <div class="header-more">
+        <div class="header-title left">用户评价</div>
+        <div class="header-more right">
           更多
           <i class="arrow-right"></i>
         </div>
@@ -15,7 +15,7 @@
       <div class="info-detail">
         <p>{{ commentInfo.content }}</p>
         <div class="info-other">
-          <span class="date">{{ commentInfo.created | showDate }}</span>
+          <span class="date">{{ commentDateFixed }}</span>
           <span>{{ commentInfo.style }}</span>
         </div>
         <div class="info-imgs">
@@ -35,10 +35,22 @@ import { formatDate } from "@/common/utils";
 
 export default {
   name: "DetailCommentInfo",
+
   props: {
     commentInfo: {
       type: Object,
       default: {},
+    },
+  },
+  data() {
+    return {
+      commentDate: "",
+    };
+  },
+  computed: {
+    commentDateFixed() {
+      let date = new Date(this.commentDate * 1000);
+      return formatDate(date, "yyyy-MM-dd");
     },
   },
   filters: {
@@ -46,6 +58,15 @@ export default {
       let date = new Date(value * 1000);
       return formatDate(date, "yyyy-MM-dd");
     },
+  },
+  watch: {
+    "commentInfo.created": function (val) {
+      this.commentDate = val;
+    },
+    // "commentInfo.created": (val) => (this.commentDate = val),
+  },
+  updated() {
+    // console.log(this.commentDate);
   },
 };
 </script>
@@ -64,12 +85,10 @@ export default {
 }
 
 .header-title {
-  float: left;
   font-size: 15px;
 }
 
 .header-more {
-  float: right;
   margin-right: 10px;
   font-size: 13px;
 }
